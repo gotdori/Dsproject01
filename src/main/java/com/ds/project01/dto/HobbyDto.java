@@ -14,6 +14,6 @@ public class HobbyDto {
 	private String hobbyCd;
 	
 	@NotBlank
-	private String hobbyUserId;
+	private String hobbyNm;
 	
 }

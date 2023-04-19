@@ -7,6 +7,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -20,11 +21,14 @@ public class DeptEntity {
 	
 
 	@Id
-	@Column(name = "dept_no", length = 300, nullable = false, unique = true)
+	@NotNull
+	@Column(name = "dept_no", length = 20, unique = true)
 	private String deptNo;
 	
-	@Column(name = "dept_nm", length = 300, nullable = false)
+	@NotNull
+	@Column(name = "dept_nm", length = 300, unique = true)
 	private String deptNm;
+	
 	
 	public static DeptEntity toDeptEntity(DeptDto dto) {
 		DeptEntity entity = new DeptEntity();

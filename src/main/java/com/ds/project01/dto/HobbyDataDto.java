@@ -11,7 +11,7 @@ import lombok.ToString;
 public class HobbyDataDto {
 	
 	@NotBlank
-	private String hobbyUserId;
+	private String UserId;
 	
 	@NotBlank
 	private String hobbyCd;

@@ -20,7 +20,7 @@ public class UserDto {
 	private String userEmlAddr;
 	
 	@NotEmpty(message = "부서명은 필수 입력 값입니다.")
-	private String userDeptNo;
+	private String deptNo;
 	
 	@NotEmpty(message = "전화번호는 필수 입력 값입니다.")
 	private String userTelno;

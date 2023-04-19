@@ -5,6 +5,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,12 +17,14 @@ import lombok.ToString;
 @Table(name="hobby_tb")
 public class HobbyEntity {
 	
-
-	@Id
-	@Column(name = "hobby_cd_nm", length = 300, nullable = false, unique = true)
-	private String hobbyCdnm;
 	
-	@Column(name = "hobby_nm", length = 300, nullable = false)
-	private String hobbyNM;
+	@Id
+	@NotNull
+	@Column(name = "hobby_cd", length = 300, unique = true)
+	public String hobbyCd;
+	
+	@NotNull
+	@Column(name = "hobby_nm", length = 300, unique = true)
+	private String hobbyNm;
 	
 }
