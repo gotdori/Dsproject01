@@ -47,7 +47,19 @@ public class UserService {
 	}
 	
 	public void delete(UserEntity entity) {
+		
 		userRepo.delete(entity);
+	}
+	
+//	public void HDdelete(String userID) {
+//		
+//		hobbyDataRepo.deleteHBdata(userID);
+//		System.out.println(userID);
+//	}
+	
+	public void HDdelete(String id) {
+		
+		hobbyDataRepo.deleteHBdata(id);
 	}
 	
 	public UserEntity view(UserEntity entity) {

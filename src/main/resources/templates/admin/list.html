@@ -48,7 +48,7 @@
 
 			<!-- 개인정보 화면 -->
    	       <div class="col-md-6" data-aos="fade-up">
-			<form name="userForm" id="userForm">
+			<form name="userForm" id="userForm" >
 			<div class="form-group">
 				<label for="user_id">ID</label><br>
 				<input type="text" class="form-control" id="userId" name="userId" readonly>
@@ -81,9 +81,12 @@
 			</div>
 			<div class="form-group">
 				<label for="hobbies">취미:</label><br>
+				<input type="hidden" id="userHobbyData">
 				<div class="form-check form-check-inline">
-					<th:block th:each="hobbyList:${hobbyList}">
-					<input  class="form-check-input" type="checkbox" th:value="${hobbyList.hobbyCd}">
+					<th:block th:each="hobbyList,hobby:${hobbyList}">
+					<input  class="form-check-input" type="checkbox" th:value="${hobbyList.hobbyCd}"
+					 name="hobbyCd" th:attr="id=${'hobbyCd' + hobby.index}" >
+					
 					<label class="form-check-label" th:text="${hobbyList.hobbyNm}"></label>
 					</th:block>
 				</div>
@@ -129,6 +132,20 @@ function getView(id){
 		$('#userAddr').attr("value",res.getUserAddr);
 		$("#deptNo").val(res.getUserDeptNo);
 		$("#userAprvYn").val(res.getUserAprvYn);
+		
+		//취미
+		$('.form-check-input').each(function() {
+	          var currentValue = $(this).val();
+	          for (var i = 0; i < Object.keys(res).length; i++) {
+	              var resValue = res['userHobbyChoice' + i];
+	              if (currentValue == resValue) {
+	                  $(this).prop('checked', true);
+	                  break;
+	              } else {
+	                  $(this).prop('checked', false);
+	              }
+	          }
+	      });
 	})
 	.fail((res, status, error)=>{
 		console.log(error)
@@ -156,5 +173,7 @@ $("#btnUpdate").click(()=>{
 		dataType:"json"
 	})
 })
+
+
 
 </script>

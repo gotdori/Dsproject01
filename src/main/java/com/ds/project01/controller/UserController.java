@@ -2,16 +2,13 @@ package com.ds.project01.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ds.project01.domain.DeptEntity;
@@ -80,12 +77,11 @@ public class UserController {
 		UserEntity tempentity = service.view(entity);
 		String userId =entity.getUserId();
 		
-		List<HobbyDataEntity> a = service.HobbyDataView(userId);
-		for (int i = 0; i < a.size(); i++) {
-			model.addAttribute("취미"+i, a.get(i).getHobbyEntity().getHobbyCd());;
-			System.out.println(a.get(i).getHobbyEntity().getHobbyCd());
+		List<HobbyDataEntity> hobbyDataList = service.HobbyDataView(userId);
+		for (int i = 0; i < hobbyDataList.size(); i++) {
+			map.put("userHobbyChoice"+i, hobbyDataList.get(i).getHobbyEntity().getHobbyCd());
+			System.out.println(hobbyDataList.get(i).getHobbyEntity().getHobbyCd());
 		}
-		
 		map.put("deptList", deptlist);
 		map.put("getUerId",tempentity.getUserId());
 		map.put("getUserNm",tempentity.getUserNm());
@@ -94,16 +90,25 @@ public class UserController {
 		map.put("getUserDeptNo",tempentity.getDeptEntity().getDeptNo());
 		map.put("getUserAprvYn",tempentity.getUserAprvYn());
 		
-		
 		return map;
 	}
 	
 	@PostMapping("/admin/delete")
-	public String admin_delete(UserDto dto) {
+	public String user_delete(UserDto dto) {
 		UserEntity entity = UserEntity.toUserEntity(dto);
+		
+		if(hd_delete(dto.getUserId())==true) {
+//		service.HDdelete(dto.getUserId());
 		service.delete(entity);
 		return "redirect:/";
+		} else {
+			return "/admin/list";
+		}
 	}
-
+	
+	public boolean hd_delete(String id) {
+		service.HDdelete(id);
+		return true;
+	}
 
 }

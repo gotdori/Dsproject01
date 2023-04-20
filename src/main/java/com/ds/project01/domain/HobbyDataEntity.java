@@ -4,7 +4,9 @@ package com.ds.project01.domain;
 
 import com.ds.project01.dto.HobbyDataDto;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
@@ -24,13 +26,13 @@ public class HobbyDataEntity {
 	
 
 	@Id
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "user_id")
 	private UserEntity userEntiy;
 	
 	
 	@Id
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
 	@JoinColumn(name = "hobby_cd")
 	private HobbyEntity hobbyEntity;
 	
