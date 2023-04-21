@@ -46,4 +46,4 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-bootBuildImage { imageName = "${project.name}" }
+bootBuildImage { imageName = "dsproject01" }
