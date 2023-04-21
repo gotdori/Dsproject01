@@ -97,18 +97,18 @@ public class UserController {
 	public String user_delete(UserDto dto) {
 		UserEntity entity = UserEntity.toUserEntity(dto);
 		
-//		if(hd_delete(dto.getUserId())==true) {
-//		service.HDdelete(dto.getUserId());
+		if(hd_delete(dto.getUserId())==true) {
+		service.HDdelete(dto.getUserId());
 		service.delete(entity);
 		return "redirect:/";
-//		} else {
-//			return "/admin/list";
-//		}
+		} else {
+			return "/admin/list";
+		}
 	}
 	
-//	public boolean hd_delete(String id) {
-//		service.HDdelete(id);
-//		return true;
-//	}
+	public boolean hd_delete(String id) {
+		service.HDdelete(id);
+		return true;
+	}
 
 }
