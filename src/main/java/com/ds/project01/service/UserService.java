@@ -59,7 +59,7 @@ public class UserService {
 	
 	public void HDdelete(String id) {
 		
-		hobbyDataRepo.deleteHBdata(id);
+		hobbyDataRepo.deleteByUserEntiy_UserId(id);
 	}
 	
 	public UserEntity view(UserEntity entity) {
