@@ -1,6 +1,5 @@
 package com.ds.project01.dto;
 
-import javax.validation.constraints.NotBlank;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,10 +10,8 @@ import lombok.ToString;
 @ToString
 public class HobbyDataDto {
 	
-	@NotBlank
-	private String UserId;
+	private String userId;
 	
-	@NotBlank
 	private String hobbyCd;
 	
 }

@@ -51,17 +51,6 @@ public class UserService {
 		userRepo.delete(entity);
 	}
 	
-//	public void HDdelete(String userID) {
-//		
-//		hobbyDataRepo.deleteHBdata(userID);
-//		System.out.println(userID);
-//	}
-	
-	public void HDdelete(String id) {
-		
-		hobbyDataRepo.deleteByUserEntiy_UserId(id);
-	}
-	
 	public UserEntity view(UserEntity entity) {
 		return userRepo.findByUserId(entity.getUserId());
 	}
@@ -78,7 +67,11 @@ public class UserService {
 		hobbyDataRepo.save(entity);
 	}
 	
-	public List<HobbyDataEntity> HobbyDataView(String userID) {
-		return hobbyDataRepo.findByUserEntiy_UserId(userID);
+	public List<HobbyDataEntity> HobbyDataView(String userId) {
+		return hobbyDataRepo.findByUserEntity_UserId(userId);
+	}
+	
+	public void HobbyDataDelete(String userId) {
+		hobbyDataRepo.deleteByUserEntity_UserId(userId);
 	}
 }

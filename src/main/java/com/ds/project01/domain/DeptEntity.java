@@ -7,8 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.stereotype.Repository;
-
 import com.ds.project01.dto.DeptDto;
 
 import lombok.Getter;

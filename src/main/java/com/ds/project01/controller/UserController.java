@@ -35,21 +35,23 @@ public class UserController {
 		return "/user/write";
 	}
 
-	@PostMapping("/user/save")
-	public String user_save(UserDto dto, HobbyDataDto hdDto, Model model) {
-		UserEntity entity = UserEntity.toUserEntity(dto);
-		String splitChoice = hdDto.getHobbyCd();
+	@PostMapping("/user/save") //내 코드 기준으로 userId가 있으면 update, 없으면 insert
+	public String user_save(UserDto dto, Model model, HobbyDataDto hdDto) {
+		service.HobbyDataDelete(dto.getUserId());	//유저취미 업데이트하기 위해 취미 데이터를 먼저 싹 지우고 밑에서 다시 추가함
+		UserEntity entity = UserEntity.toUserEntity(dto); //dto를 entity로 변환
+		String splitChoice = hdDto.getHobbyCd();	//dto로 취미코드 1,2,3 받은거 저장
 		String[] ArraysStr = splitChoice.split(",");
 		
-		service.insert(entity);
-		HobbyDataDto hobbyDataDto = new HobbyDataDto();
+		service.insert(entity); //유저 정보가 먼저 들어가 있어야 참조 하고있는 취미데이터에도 정보를 넣을 수 있음 
+		HobbyDataDto hobbyDataDto = new HobbyDataDto();	//빈 Dto 만들어서 취미데이터 넣어줌
 		for(String s : ArraysStr) {
 			hobbyDataDto.setHobbyCd(s);
 			hobbyDataDto.setUserId(dto.getUserId());
-			HobbyDataEntity hobbyDataEntity = HobbyDataEntity.toHobbyDataEntity(hobbyDataDto);
-			service.HobbyDataInsert(hobbyDataEntity);
+			HobbyDataEntity hobbyDataEntity = HobbyDataEntity.toHobbyDataEntity(hobbyDataDto); //Dto를 entity로 변환
+			service.HobbyDataInsert(hobbyDataEntity); //취미데이터도 저장
 		}
-		return "redirect:/";
+		
+		return "redirect:/user/write";
 	}
 
 	@GetMapping("/admin/list")
@@ -97,18 +99,9 @@ public class UserController {
 	public String user_delete(UserDto dto) {
 		UserEntity entity = UserEntity.toUserEntity(dto);
 		
-		if(hd_delete(dto.getUserId())==true) {
-		service.HDdelete(dto.getUserId());
+		service.HobbyDataDelete(dto.getUserId());
 		service.delete(entity);
-		return "redirect:/";
-		} else {
-			return "/admin/list";
-		}
+		return "redirect:/admin/list";
 	}
 	
-	public boolean hd_delete(String id) {
-		service.HDdelete(id);
-		return true;
-	}
-
 }

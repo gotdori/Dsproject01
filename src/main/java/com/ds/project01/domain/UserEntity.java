@@ -1,13 +1,15 @@
 package com.ds.project01.domain;
 
-import javax.persistence.CascadeType;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import com.ds.project01.dto.UserDto;
 
@@ -24,31 +26,28 @@ public class UserEntity {
 	
 
 	@Id
-	@NotNull
 	@Column(name = "user_id", length = 20,  unique = true)
 	public String userId;
 	
-	@NotNull
+//	@OneToMany(mappedBy = "hobbydata_tb")
+//	private List<HobbyDataEntity> hobbyDataEntity;
+	
 	@Column(name = "user_nm", length = 300)
 	private String userNm;
 	
-	@NotNull
 	@Column(name = "user_eml_addr", length = 320)
 	private String userEmlAddr;
 	
-	@NotNull
 	@Column(name = "user_telno", length = 13)
 	private String userTelno;
 	
-	@NotNull
 	@Column(name = "user_addr", length = 600)
 	private String userAddr;
 	
-	@NotNull
 	@Column(name = "user_aprv_yn", length = 1)
 	private String userAprvYn;
 	
-	@ManyToOne(cascade = CascadeType.REMOVE)
+	@ManyToOne
 	@JoinColumn(name = "dept_no")
 	private DeptEntity deptEntity;
 	

@@ -40,7 +40,10 @@
 							<td th:text="${adminlist.userId}" th:onclick="getView([[${adminlist.userId}]])"></td>
 							<td th:text="${adminlist.userNm}" th:onclick="getView([[${adminlist.userId}]])"></td>
 							<td th:text="${adminlist.deptEntity.deptNm}" th:onclick="getView([[${adminlist.userId}]])"></td>
-							<td th:text="${adminlist.userAprvYn}" th:onclick="getView([[${adminlist.userId}]])"></td>
+							<td th:onclick="getView([[${adminlist.userId}]])">
+							<th:block th:if="${adminlist.userAprvYn}=='y'">승인</th:block>
+							<th:block th:if="${adminlist.userAprvYn}=='n'">승인대기</th:block>
+							</td>
 						</tr>
 					</tbody>
 				</table>

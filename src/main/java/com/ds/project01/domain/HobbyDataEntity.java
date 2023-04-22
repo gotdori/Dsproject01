@@ -2,9 +2,7 @@ package com.ds.project01.domain;
 
 
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
@@ -22,18 +20,18 @@ import lombok.ToString;
 @ToString
 @Entity
 @IdClass(HobbyDataPK.class)
-@Table(name="hobbyData_tb")
+@Table(name="hobbydata_tb")
 public class HobbyDataEntity {
 	
 
 	@Id
-	@ManyToOne(cascade = CascadeType.REMOVE)
+	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private UserEntity userEntiy;
+	private UserEntity userEntity;
 	
 	
 	@Id
-	@ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "hobby_cd")
 	private HobbyEntity hobbyEntity;
 	
@@ -45,9 +43,10 @@ public class HobbyDataEntity {
 		
 		userEntity.setUserId(dto.getUserId());
 		hobbyEntity.setHobbyCd(dto.getHobbyCd());
-		
-		hdEntity.setUserEntiy(userEntity);
+		hdEntity.setUserEntity(userEntity);
 		hdEntity.setHobbyEntity(hobbyEntity);
+		
+		System.out.println(hdEntity);
 		
 		return hdEntity;
 	}
