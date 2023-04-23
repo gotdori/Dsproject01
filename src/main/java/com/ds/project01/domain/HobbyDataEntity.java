@@ -19,15 +19,15 @@ import lombok.ToString;
 @Setter
 @ToString
 @Entity
-@IdClass(HobbyDataPK.class)
+@IdClass(HobbyDataPK.class)//복합키를 사용 하면 아이디 클래스를 지정해줘야함
 @Table(name="hobbydata_tb")
 public class HobbyDataEntity {
 	
 
 	@Id
-	@ManyToOne
+	@ManyToOne //유저엔티티에 블로그 있으니 확인
 	@JoinColumn(name = "user_id")
-	private UserEntity userEntity;
+	private UserEntity userEntity; //복합키(composit key)을 할 때 조인이 아닌 객체를 가져옴, 자세한 내용은 유저엔티티에 블로그 있음
 	
 	
 	@Id

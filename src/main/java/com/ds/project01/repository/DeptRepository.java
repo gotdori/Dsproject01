@@ -9,6 +9,6 @@ import com.ds.project01.domain.DeptEntity;
 
 public interface DeptRepository extends JpaRepository<DeptEntity, String>{
 
-	List<DeptEntity> findAll();
+	List<DeptEntity> findAll(); // 굳이 안만들었어도 됨
 }
  

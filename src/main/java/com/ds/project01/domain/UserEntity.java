@@ -1,14 +1,11 @@
 package com.ds.project01.domain;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.ds.project01.dto.UserDto;
@@ -22,15 +19,12 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name="user_tb")
-public class UserEntity {
+public class UserEntity { 
 	
 
 	@Id
 	@Column(name = "user_id", length = 20,  unique = true)
 	public String userId;
-	
-//	@OneToMany(mappedBy = "hobbydata_tb")
-//	private List<HobbyDataEntity> hobbyDataEntity;
 	
 	@Column(name = "user_nm", length = 300)
 	private String userNm;
@@ -47,7 +41,7 @@ public class UserEntity {
 	@Column(name = "user_aprv_yn", length = 1)
 	private String userAprvYn;
 	
-	@ManyToOne
+	@ManyToOne //https://jeong-pro.tistory.com/231 단방향 N:1
 	@JoinColumn(name = "dept_no")
 	private DeptEntity deptEntity;
 	

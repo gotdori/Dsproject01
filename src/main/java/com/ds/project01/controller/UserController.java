@@ -59,10 +59,10 @@ public class UserController {
 		List<UserEntity> adminlist = new ArrayList<>();
 		List<DeptEntity> deptlist = service.deptList();
 		List<HobbyEntity> hobbylist = service.hobbyList();
-		if (searchKeyword == null) {
-			adminlist = service.adminList();
-		} else {
-			adminlist = service.seachNm(searchKeyword);
+		if (searchKeyword == null) { //검색 키워드 없으면
+			adminlist = service.adminList(); //전체리스트 출력
+		} else {					//있으면
+			adminlist = service.seachNm(searchKeyword); //검색한 리스트 출력
 		}
 		model.addAttribute("hobbyList", hobbylist);
 		model.addAttribute("deptList", deptlist);
@@ -70,21 +70,21 @@ public class UserController {
 		return "/admin/list";
 	}
 	
+	//검색한 리스트 화면을 고정한 상태로 view를 보이고 싶었음. 그래서 비동기인 ajax를 사용하기 위해 json형태로 데이터를 받으니 @ResponseBody
 	@ResponseBody
 	@GetMapping("/admin/view")
-	HashMap<String, Object> userView(UserDto userDto, Model model){
-		HashMap<String, Object> map = new HashMap<>();
-		List<DeptEntity> deptlist = service.deptList();
-		UserEntity entity = UserEntity.toUserEntity(userDto);
-		UserEntity tempentity = service.view(entity);
+	HashMap<String, Object> userView(UserDto userDto, Model model){ //ajax로 보낸  userID 정보를 userDto에 담아서 받아옴 
+		HashMap<String, Object> map = new HashMap<>(); //attribute로 html 태그 안으로 데이터를 넘길 때는 Model, script 태그 안에는 map
+		List<DeptEntity> deptlist = service.deptList(); // 부서리스트 받음
+		UserEntity entity = UserEntity.toUserEntity(userDto); //유저dto를 엔티티로 변환
+		UserEntity tempentity = service.view(entity); //엔티티(유저ID)를 보내서 뷰 정보를 받음
 		String userId =entity.getUserId();
 		
-		List<HobbyDataEntity> hobbyDataList = service.HobbyDataView(userId);
+		List<HobbyDataEntity> hobbyDataList = service.HobbyDataView(userId); //유저ID로 취미데이터 리스트도 불러옴
 		for (int i = 0; i < hobbyDataList.size(); i++) {
-			map.put("userHobbyChoice"+i, hobbyDataList.get(i).getHobbyEntity().getHobbyCd());
-			System.out.println(hobbyDataList.get(i).getHobbyEntity().getHobbyCd());
+			map.put("userHobbyChoice"+i, hobbyDataList.get(i).getHobbyEntity().getHobbyCd()); //각각 여러 취미데이터를 다른 아이디로 저장
 		}
-		map.put("deptList", deptlist);
+		map.put("deptList", deptlist); //받아온 부서 데이터 저장 후 script에서 불러낼것
 		map.put("getUerId",tempentity.getUserId());
 		map.put("getUserNm",tempentity.getUserNm());
 		map.put("getUserEmlAddr",tempentity.getUserEmlAddr());
